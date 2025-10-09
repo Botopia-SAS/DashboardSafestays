@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SafeStays Dashboard
 
-## Getting Started
+Panel administrativo para gestionar el contenido de SafeStays.
 
-First, run the development server:
+## 🚀 Inicio Rápido
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev -- -p 3001
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> Usa puerto 3001 para evitar conflicto con la landing
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Abre [http://localhost:3001](http://localhost:3001)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📋 Características
 
-## Learn More
+- ✅ Sistema de autenticación (Supabase Auth)
+- ✅ Login seguro
+- ✅ CRUD completo de contenido
+- ✅ Protección de rutas con middleware
+- ✅ Logout
+- ✅ Interfaz responsive
 
-To learn more about Next.js, take a look at the following resources:
+## 🔐 Login
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Usa las credenciales del usuario creado en Supabase:
+- Email: admin@safestays.com (o el que creaste)
+- Password: tu-contraseña
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔧 Configuración
 
-## Deploy on Vercel
+Las credenciales de Supabase ya están configuradas en `.env.local`:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```env
+NEXT_PUBLIC_SUPABASE_URL=tu-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=tu-key
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📦 Estructura
+
+```
+dashboard/
+├── app/
+│   ├── page.tsx              # Dashboard principal
+│   └── login/
+│       └── page.tsx          # Página de login
+├── components/
+│   └── dashboard/
+│       ├── DashboardHeader.tsx   # Header con logout
+│       └── ContentManager.tsx    # CRUD de contenido
+├── lib/
+│   └── supabase/
+│       ├── client.ts         # Cliente browser
+│       ├── server.ts         # Cliente server
+│       └── middleware.ts     # Protección auth
+└── middleware.ts             # Middleware Next.js
+```
+
+## 🛠️ Funcionalidades
+
+### Gestión de Contenido
+- **Crear**: Agrega título, descripción e imagen
+- **Listar**: Ver todo el contenido creado
+- **Eliminar**: Borrar contenido existente
+
+El contenido creado aquí aparece automáticamente en la **Landing Page**.
+
+## 🌐 Despliegue
+
+```bash
+vercel
+```
+
+Recuerda agregar las variables de entorno en Vercel.
+
+**Importante**: El dashboard debe estar en un dominio diferente al de la landing.
+
+Ejemplo:
+- Landing: `https://safestays.com`
+- Dashboard: `https://admin.safestays.com`
+
+## 📝 Notas
+
+- Requiere autenticación para todas las operaciones
+- El middleware protege automáticamente todas las rutas
+- Comparte la misma base de datos con la Landing
+- Las políticas RLS de Supabase garantizan la seguridad
