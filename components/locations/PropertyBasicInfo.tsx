@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { PropertyFormData, LISTING_TYPES, PROPERTY_TYPES } from "@/types/property";
 
 interface PropertyBasicInfoProps {
@@ -7,7 +8,7 @@ interface PropertyBasicInfoProps {
   onChange: (data: Partial<PropertyFormData>) => void;
 }
 
-export function PropertyBasicInfo({ formData, onChange }: PropertyBasicInfoProps) {
+export const PropertyBasicInfo = memo(function PropertyBasicInfo({ formData, onChange }: PropertyBasicInfoProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
@@ -102,4 +103,4 @@ export function PropertyBasicInfo({ formData, onChange }: PropertyBasicInfoProps
       </div>
     </div>
   );
-}
+});

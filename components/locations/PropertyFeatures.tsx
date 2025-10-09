@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, memo, useCallback } from "react";
 import { Plus, X } from "lucide-react";
 
 interface PropertyFeaturesProps {
@@ -8,26 +8,26 @@ interface PropertyFeaturesProps {
   onChange: (features: string[]) => void;
 }
 
-export function PropertyFeatures({ features, onChange }: PropertyFeaturesProps) {
+export const PropertyFeatures = memo(function PropertyFeatures({ features, onChange }: PropertyFeaturesProps) {
   const [newFeature, setNewFeature] = useState("");
 
-  const handleAddFeature = () => {
+  const handleAddFeature = useCallback(() => {
     if (newFeature.trim()) {
       onChange([...features, newFeature.trim()]);
       setNewFeature("");
     }
-  };
+  }, [newFeature, features, onChange]);
 
-  const handleRemoveFeature = (index: number) => {
+  const handleRemoveFeature = useCallback((index: number) => {
     onChange(features.filter((_, i) => i !== index));
-  };
+  }, [features, onChange]);
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyPress = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleAddFeature();
     }
-  };
+  }, [handleAddFeature]);
 
   return (
     <div>
@@ -71,4 +71,4 @@ export function PropertyFeatures({ features, onChange }: PropertyFeaturesProps) 
       </div>
     </div>
   );
-}
+});

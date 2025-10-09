@@ -1,5 +1,6 @@
 "use client";
 
+import { memo, useCallback } from "react";
 import { Trash2 } from "lucide-react";
 import { PropertyImage } from "@/types/property";
 import { CloudinaryUpload } from "./CloudinaryUpload";
@@ -12,10 +13,10 @@ interface PropertyImagesProps {
 const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "";
 const CLOUDINARY_UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "";
 
-export function PropertyImages({ images, onChange }: PropertyImagesProps) {
-  const handleRemoveImage = (index: number) => {
+export const PropertyImages = memo(function PropertyImages({ images, onChange }: PropertyImagesProps) {
+  const handleRemoveImage = useCallback((index: number) => {
     onChange(images.filter((_, i) => i !== index));
-  };
+  }, [images, onChange]);
 
   return (
     <div>
@@ -57,4 +58,4 @@ export function PropertyImages({ images, onChange }: PropertyImagesProps) {
       )}
     </div>
   );
-}
+});

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { X } from "lucide-react";
 import { PropertyFormData, DEFAULT_FORM_DATA } from "@/types/property";
 import { PropertyBasicInfo } from "./PropertyBasicInfo";
@@ -21,6 +21,10 @@ export function AddPropertyModal({
 }: AddPropertyModalProps) {
   const [formData, setFormData] = useState<PropertyFormData>(DEFAULT_FORM_DATA);
 
+  const handleChange = useCallback((data: Partial<PropertyFormData>) => {
+    setFormData((prev) => ({ ...prev, ...data }));
+  }, []);
+
   if (!isOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -28,10 +32,6 @@ export function AddPropertyModal({
     onSubmit(formData);
     setFormData(DEFAULT_FORM_DATA);
     onClose();
-  };
-
-  const handleChange = (data: Partial<PropertyFormData>) => {
-    setFormData((prev) => ({ ...prev, ...data }));
   };
 
   return (

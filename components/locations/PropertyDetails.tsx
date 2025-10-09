@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { PropertyFormData } from "@/types/property";
 
 interface PropertyDetailsProps {
@@ -7,7 +8,7 @@ interface PropertyDetailsProps {
   onChange: (data: Partial<PropertyFormData>) => void;
 }
 
-export function PropertyDetails({ formData, onChange }: PropertyDetailsProps) {
+export const PropertyDetails = memo(function PropertyDetails({ formData, onChange }: PropertyDetailsProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
@@ -80,4 +81,4 @@ export function PropertyDetails({ formData, onChange }: PropertyDetailsProps) {
       </div>
     </div>
   );
-}
+});
