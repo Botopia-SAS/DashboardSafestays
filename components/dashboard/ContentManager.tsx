@@ -23,10 +23,6 @@ export function ContentManager() {
   const [submitting, setSubmitting] = useState(false);
   const supabase = createClient();
 
-  useEffect(() => {
-    loadItems();
-  }, []);
-
   const loadItems = async () => {
     try {
       const { data, error } = await supabase
@@ -42,6 +38,11 @@ export function ContentManager() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    loadItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

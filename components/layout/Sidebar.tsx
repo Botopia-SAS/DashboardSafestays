@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, MapPin, Calendar, Users, Mail, Lock } from "lucide-react";
+import { Home, MapPin, Calendar, Users, Mail, Lock, FileSpreadsheet } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface NavItem {
@@ -14,6 +14,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { name: "Dashboard", href: "/dashboard", icon: Home },
+  { name: "Properties (Sheets)", href: "/properties", icon: FileSpreadsheet },
   { name: "Locations", href: "/locations", icon: MapPin },
   { name: "Dates", href: "/dates", icon: Calendar, locked: true },
   { name: "Contacts", href: "/contacts", icon: Mail, locked: true },
