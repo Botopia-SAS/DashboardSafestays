@@ -1,10 +1,31 @@
 import { google } from 'googleapis';
 import { SheetProperty, SHEET_CONFIG, rowToSheetProperty, sheetPropertyToRow } from '@/types/sheets';
-import credentials from './credentials.json';
+
+// Obtener credenciales desde variables de entorno
+function getCredentials() {
+  const credentialsBase64 = process.env.GOOGLE_CREDENTIALS_BASE64;
+  
+  if (credentialsBase64) {
+    // Decodificar de Base64
+    const credentialsJson = Buffer.from(credentialsBase64, 'base64').toString('utf-8');
+    return JSON.parse(credentialsJson);
+  }
+  
+  // Fallback para desarrollo local
+  if (process.env.NODE_ENV === 'development') {
+    try {
+      return require('./credentials.json');
+    } catch (error) {
+      throw new Error('No credentials found. Set GOOGLE_CREDENTIALS_BASE64 environment variable.');
+    }
+  }
+  
+  throw new Error('GOOGLE_CREDENTIALS_BASE64 environment variable is required in production.');
+}
 
 // Inicializar cliente de Google Sheets
 const auth = new google.auth.GoogleAuth({
-  credentials,
+  credentials: getCredentials(),
   scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
 
