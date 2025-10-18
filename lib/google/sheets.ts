@@ -14,8 +14,9 @@ function getCredentials() {
   // Fallback para desarrollo local
   if (process.env.NODE_ENV === 'development') {
     try {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       return require('./credentials.json');
-    } catch (error) {
+    } catch {
       throw new Error('No credentials found. Set GOOGLE_CREDENTIALS_BASE64 environment variable.');
     }
   }
